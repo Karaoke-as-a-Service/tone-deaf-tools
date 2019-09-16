@@ -38,7 +38,7 @@ Run the following commands on each of your files:
    to a different encoding. Pass the original, untouched file. Note that iconv
    names for encodings might be slightly different, consult `iconv -l`.
 4. run `fix_file_links.py`
-5. run `find_unlinked_files.py` (not yet implemented)
+5. run `find_unlinked_files.py`
 
 ## Tools
 
@@ -77,6 +77,29 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   --dry-run   just find the encoding, do not change the file.
+
+```
+
+### fix_file_links.py
+
+```console
+$ ./fix_file_links.py --help
+usage: fix_file_links.py [-h] [--dry-run] files [files ...]
+
+Try to fix file links in #COVER, #MP3, #VIDEO and #BACKGROUND, which do not
+resolve correctly, due to differing encodings of filenames on the disk and in
+the attributes. Once the correct files have been found, rename them to
+"<artist> - <song>.<extension>", update the attributes and rewrite the file
+in-place. Remove any attributes, which cannot be resolved. Expects the text
+files to be in the same directory as the media files. Only accepts UTF-8
+encoded text files.
+
+positional arguments:
+  files
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --dry-run
 
 ```
 
