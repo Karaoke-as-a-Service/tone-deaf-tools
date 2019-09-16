@@ -9,6 +9,37 @@ Many of these scripts are write-and-forget - we needed them, wrote them, ran
 them and forgot about them. Even though the code quality is not up to most
 standards, they might still be useful to you. Have fun and send us fixes! ;)
 
+## Typical Workflows
+
+All of the tools read files from your disk, do something with them and, if
+applicable, write changed content back to the disk, into th same file. If they
+write, they also provid a `--dry-run` to disable that step. All commands support
+a list of files as command line arguments, so you can process multiple files
+easily.
+
+To run a command on all of your files, you can use `find(1)` or a combination
+of `find(1)` and `xargs(1)` for better performance:
+
+* `find songs -type f -name '*.txt' -exec python script.py "{}" \;`
+* `find songs -type f -name '*.txt' -print0 | xargs -0 -P8 -n10 python`
+
+### Unknown Encoding
+
+Scenario: you are given a library of usdx files in unknown, mixed encodings. In
+order to edit the files with standard tools and display them properly in
+ultrastar, you'd like to convert all of them to UTF-8.
+
+Run the following commands on each of your files:
+
+1. run `normalize_line_endings.py`
+2. run `recode_language.py`
+3. Have a good look at your files, by inspecting any non-ascii characters. Use
+   `debug_encoding.py`, if in doubt. You can use `iconv(1)` to convert the files
+   to a different encoding. Pass the original, untouched file. Note that iconv
+   names for encodings might be slightly different, consult `iconv -l`.
+4. run `fix_file_links.py`
+5. run `find_unlinked_files.py` (not yet implemented)
+
 ## Tools
 
 ### update_readme.py
