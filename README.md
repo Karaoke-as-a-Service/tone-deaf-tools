@@ -123,6 +123,23 @@ optional arguments:
 
 ```
 
+### list_attributes.py
+
+```console
+$ ./list_attributes.py --help
+usage: list_attributes.py [-h] [--no-filename] files [files ...]
+
+For a list of ultrastar text files, find all attribute names and print them.
+
+positional arguments:
+  files
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --no-filename  just print the name, not the file path.
+
+```
+
 ### download_cover.py
 
 ```console

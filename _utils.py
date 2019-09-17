@@ -32,6 +32,9 @@ def find_decodings(content):
     yield from unlikely_encodings
 
 
+def get_attribut_names(text):
+    return re.findall('#(.*):', text)
+
 
 def get_attribute(text, attribute):
     try:
