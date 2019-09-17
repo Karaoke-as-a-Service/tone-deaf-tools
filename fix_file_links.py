@@ -29,7 +29,10 @@ def fix_file_links(path, dry_run=False):
     with open(path) as f:
         text = f.read()
 
-    artisttitle = get_artisttitle(text)
+    try:
+        artisttitle = get_artisttitle(text)
+    except KeyError:
+        return
 
     new_path = song_dir + '/' + artisttitle + '.txt'
     os.rename(path, new_path)
@@ -42,7 +45,7 @@ def fix_file_links(path, dry_run=False):
         try:
             attr_path = get_attribute(text, attr)
             attr_path_ascii = force_ascii(attr_path).lower()
-        except:
+        except KeyError:
             continue
 
         if attr_path == attr_path_ascii:
