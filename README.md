@@ -100,6 +100,29 @@ optional arguments:
 
 ```
 
+### download_cover.py
+
+```console
+$ ./download_cover.py --help
+usage: download_cover.py [-h] [--force] service files [files ...]
+
+Try to find a cover image for given ultrastar text files online, download
+them, set the #COVER attribute and rewrite the file. Does nothing, if there
+already is a cover file. Prints the paths of all changed files. Only accepts
+UTF-8 encoded files.
+
+positional arguments:
+  service     name of the service to download covers from, a possible one ends
+              with "enius.com"
+  files
+
+optional arguments:
+  -h, --help  show this help message and exit
+  --force     download a new cover regardless of an existing one; do not
+              remove the old one.
+
+```
+
 ### set_attribute.py
 
 ```console
