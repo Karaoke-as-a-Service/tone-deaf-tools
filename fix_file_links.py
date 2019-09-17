@@ -34,11 +34,14 @@ def fix_file_links(path, dry_run=False):
     except KeyError:
         return
 
-    new_path = song_dir + '/' + artisttitle + '.txt'
-    if not dry_run:
-        os.rename(path, new_path)
-
     print(path)
+
+    new_path = song_dir + '/' + artisttitle + '.txt'
+    if new_path != path:
+        print(f'rename {new_path}')
+
+        if not dry_run:
+            os.rename(path, new_path)
 
     lines = text.splitlines(True)
 
