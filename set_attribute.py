@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+from contextlib import suppress
 
 from _utils import set_attribute, get_attribute
 
@@ -23,9 +24,13 @@ def main(argv):
     for path in args.files:
         with open(path) as f:
             text = f.read()
-            if args.search and get_attribute(text, args.attribute) != args.search:
+            try:
+                value = get_attribute(text, args.attribute)
+            except:
+                value = None
+            if args.search and value != args.search:
                 continue
-            if get_attribute(text, args.attribute) == args.value:
+            if value == args.value:
                 continue
             lines = set_attribute(text.splitlines(), args.attribute, args.value)
 
