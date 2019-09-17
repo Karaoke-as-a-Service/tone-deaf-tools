@@ -35,7 +35,8 @@ def fix_file_links(path, dry_run=False):
         return
 
     new_path = song_dir + '/' + artisttitle + '.txt'
-    os.rename(path, new_path)
+    if not dry_run:
+        os.rename(path, new_path)
 
     print(path)
 
@@ -73,7 +74,8 @@ def fix_file_links(path, dry_run=False):
             continue
 
         print(f"rewrite {attr}")
-        os.rename(song_dir + '/' + old_attr_name, new_attr_path)
+        if not dry_run:
+            os.rename(song_dir + '/' + old_attr_name, new_attr_path)
         lines = set_attribute(lines, attr, new_attr_name)
 
     if not dry_run:
