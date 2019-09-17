@@ -12,6 +12,14 @@ standards, they might still be useful to you. Have fun and send us fixes! ;)
 If you want to experiment, put your files into the `songs` directory, which
 is ignored by git.
 
+## Setup
+
+```console
+$ python3 -m venv venv
+$ source ./venv/bin/activate
+$ pip install -r requirements.txt
+```
+
 ## Typical Workflows
 
 All of the tools read files from your disk, do something with them and, if
