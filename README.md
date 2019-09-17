@@ -123,6 +123,24 @@ optional arguments:
 
 ```
 
+### find_unused_files.py
+
+```console
+$ ./find_unused_files.py --help
+usage: find_unused_files.py [-h] directory
+
+Given a directory, look for all files non ultrastar text files, which are not
+referenced in any VIDEO, MP3, COVER or BACKGROUND attribute. Print their
+names.
+
+positional arguments:
+  directory
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+```
+
 ### set_attribute.py
 
 ```console
