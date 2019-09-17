@@ -98,7 +98,7 @@ def fix_encoding(path, dry_run=False):
 
     print(language + '/' + encoding)
 
-    if not dry_run:
+    if encoding not in ('ascii', 'utf_8') and not dry_run:
         with open(path, 'w') as f:
             f.write(content)
 
