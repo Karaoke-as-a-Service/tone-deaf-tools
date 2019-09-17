@@ -80,6 +80,49 @@ optional arguments:
 
 ```
 
+### get_attribute.py
+
+```console
+$ ./get_attribute.py --help
+usage: get_attribute.py [-h] [--no-filename] attribute files [files ...]
+
+For a list of ultrastar text files, read an attribute like #VIDEO and print
+its value. Files without the attribute are ignored. Only accepts UTF-8 encoded
+files.
+
+positional arguments:
+  attribute
+  files
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --no-filename  just print the value, not the file path.
+
+```
+
+### set_attribute.py
+
+```console
+$ ./set_attribute.py --help
+usage: set_attribute.py [-h] [--search SEARCH] [--dry-run]
+                        attribute value files [files ...]
+
+For a list of ultrastar text files, set an attribute like #VIDEO to the given
+value. Prints the paths of all changed files. Only accepts UTF-8 encoded
+files.
+
+positional arguments:
+  attribute
+  value
+  files
+
+optional arguments:
+  -h, --help       show this help message and exit
+  --search SEARCH  only replace, if the old value matches
+  --dry-run
+
+```
+
 ### fix_file_links.py
 
 ```console

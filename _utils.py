@@ -34,7 +34,10 @@ def find_decodings(content):
 
 
 def get_attribute(text, attribute):
-    return re.search('#' + attribute + ':(.*)', text).groups(1)[0]
+    try:
+        return re.search('#' + attribute + ':(.*)', text).groups(1)[0]
+    except AttributeError:
+        raise KeyError()
 
 
 def set_attribute(lines, attr, value):
