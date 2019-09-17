@@ -21,7 +21,7 @@ def force_ascii(text):
     return text.encode('ascii', errors='ignore').decode()
 
 
-def fix_file_links(path, dry_run=False):
+def fix_file_links(path, keep_missing_files, dry_run=False):
     song_dir = os.path.dirname(path)
     song_files = os.listdir(song_dir)
     song_files = {force_ascii(s): s for s in song_files}
@@ -63,8 +63,11 @@ def fix_file_links(path, dry_run=False):
         ]
 
         if not candidates:
-            print(f"remove {attr}, no file found")
-            lines = set_attribute(lines, attr, None)
+            if keep_missing_files:
+                print(f"keep {attr}, no file found")
+            else:
+                print(f"remove {attr}, no file found")
+                lines = set_attribute(lines, attr, None)
             continue
 
         old_attr_name = candidates[0]
@@ -90,11 +93,12 @@ def fix_file_links(path, dry_run=False):
 def main(argv):
     parser = argparse.ArgumentParser(description=HELP)
     parser.add_argument('files', nargs='+')
+    parser.add_argument('--keep-missing-files', action='store_true', help='do not delete lines, which reference non existing files')
     parser.add_argument('--dry-run', action='store_true')
     args = parser.parse_args(argv)
 
     for path in args.files:
-        fix_file_links(path, args.dry_run)
+        fix_file_links(path, args.keep_missing_files, args.dry_run)
 
 
 if __name__ == '__main__':

@@ -150,7 +150,8 @@ optional arguments:
 
 ```console
 $ ./fix_file_links.py --help
-usage: fix_file_links.py [-h] [--dry-run] files [files ...]
+usage: fix_file_links.py [-h] [--keep-missing-files] [--dry-run]
+                         files [files ...]
 
 Try to fix file links in #COVER, #MP3, #VIDEO and #BACKGROUND, which do not
 resolve correctly, due to differing encodings of filenames on the disk and in
@@ -164,7 +165,9 @@ positional arguments:
   files
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  --keep-missing-files  do not delete lines, which reference non existing
+                        files
   --dry-run
 
 ```
