@@ -76,7 +76,8 @@ def fix_file_links(path, dry_run=False):
             print(f"ignore {attr}, no change")
             continue
 
-        print(f"rewrite {attr}")
+        print(f"rewrite {attr}: {old_attr_name} => {new_attr_name}")
+
         if not dry_run:
             os.rename(song_dir + '/' + old_attr_name, new_attr_path)
         lines = set_attribute(lines, attr, new_attr_name)
