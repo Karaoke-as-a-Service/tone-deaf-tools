@@ -86,7 +86,11 @@ def fix_encoding(path, dry_run=False):
     with open(path, 'rb') as f:
         content = f.read()
 
-    text = next(find_decodings(content))[1]
+    try:
+        text = next(find_decodings(content))[1]
+    except StopIteration:
+        return
+
     language = guess_lyric_language(text)
     anti_alphabet = get_anti_alphabet(language)
     encoding = guess_encoding(content, anti_alphabet)
