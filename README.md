@@ -43,6 +43,18 @@ Run the following commands on each of your files:
 4. run `fix_file_links.py`
 5. run `find_unlinked_files.py`
 
+### Normalize Language (or other attributs)
+
+Scenario: your collection has mixed `#LANGUAGE` attributs like  "English",
+"Englisch", "angielski" and so on. You'd like to have only "English".
+
+1. run `./get_attribute.py LANGUAGE --no-filename (...) | sort | uniq` to get a
+   list of used languages.
+2. choose a wrong language name like "Englisch"
+3. run `./set_attribute.py LANGUAGE English --search Anglais` to set the new
+   name
+4. repeat 2. & 3.
+
 ## Tools
 
 ### update_readme.py
