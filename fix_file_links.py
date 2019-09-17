@@ -31,6 +31,7 @@ def fix_file_links(path, keep_missing_files, dry_run=False):
 
     try:
         artisttitle = get_artisttitle(text)
+        artisttitle = artisttitle.replace('/', ' ')
     except KeyError:
         return
 
