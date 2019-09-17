@@ -41,7 +41,7 @@ def fix_file_links(path, dry_run=False):
     for attr in ('MP3', 'VIDEO', 'COVER', 'BACKGROUND'):
         try:
             attr_path = get_attribute(text, attr)
-            attr_path_ascii = force_ascii(attr_path)
+            attr_path_ascii = force_ascii(attr_path).lower()
         except:
             continue
 
@@ -52,7 +52,7 @@ def fix_file_links(path, dry_run=False):
         candidates = [
             original
             for ascii, original in song_files.items()
-            if ascii == attr_path_ascii
+            if ascii.lower() == attr_path_ascii
         ]
 
         if not candidates:
