@@ -52,10 +52,6 @@ def fix_file_links(path, keep_missing_files, dry_run=False):
         except KeyError:
             continue
 
-        if attr_path == attr_path_ascii:
-            print(f"ignore {attr}, ascii")
-            continue
-
         candidates = [
             original
             for ascii, original in song_files.items()
@@ -68,6 +64,10 @@ def fix_file_links(path, keep_missing_files, dry_run=False):
             else:
                 print(f"remove {attr}, no file found")
                 lines = set_attribute(lines, attr, None)
+            continue
+
+        if attr_path == attr_path_ascii:
+            print(f"ignore {attr}, ascii")
             continue
 
         old_attr_name = candidates[0]
