@@ -22,6 +22,8 @@ def force_ascii(text):
 
 
 def fix_file_links(path, keep_missing_files, dry_run=False):
+    print(path)
+
     song_dir = os.path.dirname(path)
     song_files = os.listdir(song_dir)
     song_files = {force_ascii(s): s for s in song_files}
@@ -34,8 +36,6 @@ def fix_file_links(path, keep_missing_files, dry_run=False):
         artisttitle = artisttitle.replace('/', ' ')
     except KeyError:
         return
-
-    print(path)
 
     new_path = song_dir + '/' + artisttitle + '.txt'
     if new_path != path:
