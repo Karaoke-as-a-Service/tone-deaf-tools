@@ -37,7 +37,7 @@ def get_attribute(text, attribute):
     try:
         return re.search('#' + attribute + ':(.*)', text).groups(1)[0]
     except AttributeError:
-        raise KeyError()
+        raise KeyError(attribute)
 
 
 def set_attribute(lines, attr, value):
