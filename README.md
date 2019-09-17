@@ -9,6 +9,9 @@ Many of these scripts are write-and-forget - we needed them, wrote them, ran
 them and forgot about them. Even though the code quality is not up to most
 standards, they might still be useful to you. Have fun and send us fixes! ;)
 
+If you want to experiment, put your files into the `songs` directory, which
+is ignored by git.
+
 ## Typical Workflows
 
 All of the tools read files from your disk, do something with them and, if
