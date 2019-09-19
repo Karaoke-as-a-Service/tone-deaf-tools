@@ -39,7 +39,7 @@ def get_help_texts():
 
 
 def generate_tools_toc(help_texts):
-    return ''.join(f'* [{s}](#{s})\n' for s, _ in help_texts)
+    return ''.join(f'* [{s}](#{s.replace(".", "")})\n' for s, _ in help_texts)
 
 
 def generate_tools_markdown(help_texts):
