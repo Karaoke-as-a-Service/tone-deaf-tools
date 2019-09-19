@@ -31,12 +31,12 @@ def required_attribute(attr):
 
 
 def file_exists(attr):
-    @check(f'File referenced in {attr} must exist')
+    @check(f'File referenced in {attr} must exist, if present')
     def file_exists(text, path):
         try:
             songdir = os.path.dirname(path)
             attr_path = get_attribute(text, attr)
-            if not os.path.exists(os.path.join(songdir, attr_path)):
+            if not os.path.isfile(os.path.join(songdir, attr_path)):
                 yield f'file referenced in attribute {attr} not found: {attr_path}'
         except KeyError:
             pass

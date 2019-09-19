@@ -215,10 +215,10 @@ For each given file, check the following conditions. Exit with exit-code 1, if a
  Attribute MP3 must be present
  Attribute TITLE must be present
  Attribute ARTIST must be present
- File referenced in MP3 must exist
- File referenced in COVER must exist
- File referenced in VIDEO must exist
- File referenced in BACKGROUND must exist
+ File referenced in MP3 must exist, if present
+ File referenced in COVER must exist, if present
+ File referenced in VIDEO must exist, if present
+ File referenced in BACKGROUND must exist, if present
  All attribute names must be UPPERCASE
 
 positional arguments:
