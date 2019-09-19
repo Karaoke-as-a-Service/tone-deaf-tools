@@ -204,6 +204,31 @@ optional arguments:
 
 ```
 
+### check_health.py
+
+```console
+$ ./check_health.py --help
+usage: check_health.py [-h] files [files ...]
+
+For each given file, check the following conditions. Exit with exit-code 1, if at least one is not met.
+
+ Attribute MP3 must be present
+ Attribute TITLE must be present
+ Attribute ARTIST must be present
+ File referenced in MP3 must exist
+ File referenced in COVER must exist
+ File referenced in VIDEO must exist
+ File referenced in BACKGROUND must exist
+ All attribute names must be UPPERCASE
+
+positional arguments:
+  files
+
+optional arguments:
+  -h, --help  show this help message and exit
+
+```
+
 ### fix_file_links.py
 
 ```console
