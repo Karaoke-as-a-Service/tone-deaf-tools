@@ -41,7 +41,6 @@ def file_exists(attr):
         except KeyError:
             pass
 
-
 required_attribute('MP3')
 required_attribute('TITLE')
 required_attribute('ARTIST')
@@ -50,6 +49,15 @@ file_exists('MP3')
 file_exists('COVER')
 file_exists('VIDEO')
 file_exists('BACKGROUND')
+
+
+@check(f'must have BACKGROUND or VIDEO')
+def has_background_or_video(text, path):
+    attrs = get_attribut_names(text)
+
+    if 'BACKGROUND' not in attrs and 'VIDEO' not in attrs:
+        yield f'has neither BACKGROUND nor VIDEO'
+
 
 @check('All attribute names must be UPPERCASE')
 def lower_case_attribute(text, path):
