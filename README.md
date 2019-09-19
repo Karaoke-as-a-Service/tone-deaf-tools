@@ -65,6 +65,19 @@ Scenario: your collection has mixed `#LANGUAGE` attributs like  "English",
 
 ## Tools
 
+* [update_readme.py](#update_readme.py)
+* [recode_asktheweb.py](#recode_asktheweb.py)
+* [get_attribute.py](#get_attribute.py)
+* [list_attributes.py](#list_attributes.py)
+* [download_cover.py](#download_cover.py)
+* [find_unused_files.py](#find_unused_files.py)
+* [set_attribute.py](#set_attribute.py)
+* [check_health.py](#check_health.py)
+* [fix_file_links.py](#fix_file_links.py)
+* [recode_language.py](#recode_language.py)
+* [debug_encoding.py](#debug_encoding.py)
+* [normalize_line_endings.py](#normalize_line_endings.py)
+
 ### update_readme.py
 
 ```console

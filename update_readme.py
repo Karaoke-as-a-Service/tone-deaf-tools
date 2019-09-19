@@ -38,8 +38,11 @@ def get_help_texts():
             yield script, output.decode()
 
 
+def generate_tools_toc(help_texts):
+    return ''.join(f'* [{s}](#{s})\n' for s, _ in help_texts)
 
-def generate_tools_markdown():
+
+def generate_tools_markdown(help_texts):
     return "\n".join(
         f"""### {script}
 
@@ -47,14 +50,16 @@ def generate_tools_markdown():
 $ ./{script} --help
 {help}
 ```
-""" for script, help in get_help_texts())
+""" for script, help in help_texts)
 
 
 def generate_readme(readme_path):
     readme_preface = get_readme_preface(readme_path)
-    tools_markdown = generate_tools_markdown()
+    help_texts = list(get_help_texts())
+    toc = generate_tools_toc(help_texts)
+    tools_markdown = generate_tools_markdown(help_texts)
 
-    markdown = readme_preface + '\n' + tools_markdown
+    markdown = readme_preface + '\n' + toc + '\n' + tools_markdown
 
     with open(readme_path, 'w') as f:
         f.write(markdown)
