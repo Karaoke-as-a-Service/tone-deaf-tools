@@ -44,6 +44,7 @@ def file_exists(attr):
 required_attribute('MP3')
 required_attribute('TITLE')
 required_attribute('ARTIST')
+required_attribute('LANGUAGE')
 
 file_exists('MP3')
 file_exists('COVER')
