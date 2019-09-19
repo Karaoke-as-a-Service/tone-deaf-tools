@@ -86,7 +86,8 @@ def check_health(path):
 def main(argv):
     found_problems = False
 
-    description = HELP
+    description = HELP.strip() + '\n\n'
+    description += ' File is utf-8/ascii'
     description += '\n' + '\n'.join(' ' + c[0] for c in checks)
 
     parser = argparse.ArgumentParser(description=description, formatter_class=argparse.RawTextHelpFormatter)

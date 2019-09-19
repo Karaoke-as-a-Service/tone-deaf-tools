@@ -212,6 +212,7 @@ usage: check_health.py [-h] files [files ...]
 
 For each given file, check the following conditions. Exit with exit-code 1, if at least one is not met.
 
+ File is utf-8/ascii
  Attribute MP3 must be present
  Attribute TITLE must be present
  Attribute ARTIST must be present
