@@ -4,6 +4,7 @@ import sys
 import shutil
 import os
 import argparse
+import traceback
 
 from _utils import set_attribute, get_attribute, get_artisttitle
 
