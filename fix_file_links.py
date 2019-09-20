@@ -99,7 +99,10 @@ def main(argv):
     args = parser.parse_args(argv)
 
     for path in args.files:
-        fix_file_links(path, args.keep_missing_files, args.dry_run)
+        try:
+            fix_file_links(path, args.keep_missing_files, args.dry_run)
+        except Exception as ex:
+            traceback.print_exc()
 
 
 if __name__ == '__main__':
