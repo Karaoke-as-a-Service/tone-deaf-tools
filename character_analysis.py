@@ -2,6 +2,7 @@
 
 import argparse
 import sys
+import re
 from collections import Counter
 
 from _utils import get_artisttitle, get_lyrics
@@ -21,7 +22,7 @@ def count_characters(text):
     return Counter(f'{artisttitle}{lyrics}')
 
 
-def print_character_frequencies(path):
+def print_character_frequencies(path, ignore_chars):
     try:
         with open(path) as f:
             text = f.read()
@@ -33,7 +34,13 @@ def print_character_frequencies(path):
         print(path)
         raise
 
-    print('\n'.join(f'{char} {count}' for char, count in sorted(frequencies.items(), key=lambda x: -x[1])))
+    print(
+        '\n'.join(
+            f'{char} {count}'
+            for char, count in sorted(frequencies.items(), key=lambda x: -x[1])
+            if not ignore_chars.match(char)
+        )
+    )
     print(path)
     print(artisttitle)
 
@@ -41,10 +48,13 @@ def print_character_frequencies(path):
 def main(argv):
     parser = argparse.ArgumentParser(description=HELP)
     parser.add_argument('files', nargs='+')
+    parser.add_argument('--ignore-chars', default='', help='letters or symbols to skip during analysis, as a regex character class. passing "qwerty" ignores q, w, e, ...')
     args = parser.parse_args(argv)
 
+    ignore_chars = re.compile(f'^[{args.ignore_chars}]$')
+
     for path in args.files:
-        print_character_frequencies(path)
+        print_character_frequencies(path, ignore_chars)
 
 
 

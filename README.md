@@ -309,7 +309,8 @@ optional arguments:
 
 ```console
 $ ./character_analysis.py --help
-usage: character_analysis.py [-h] files [files ...]
+usage: character_analysis.py [-h] [--ignore-chars IGNORE_CHARS]
+                             files [files ...]
 
 For a list of files, collect all characters in artist, title and lyrics. Print
 the count of each character, the filename as well as the artist/title. This
@@ -320,7 +321,10 @@ positional arguments:
   files
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  --ignore-chars IGNORE_CHARS
+                        letters or symbols to skip during analysis, as a regex
+                        character class. passing "qwerty" ignores q, w, e, ...
 
 ```
 
