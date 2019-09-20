@@ -89,14 +89,19 @@ def fix_encoding(path, dry_run=False):
     try:
         text = next(find_decodings(content))[1]
     except StopIteration:
+        print(f'ERROR\tcoult not find encoding\t{path}')
         return
 
-    language = guess_lyric_language(text)
-    anti_alphabet = get_anti_alphabet(language)
-    encoding = guess_encoding(content, anti_alphabet)
-    content = content.decode(encoding)
+    try:
+        language = guess_lyric_language(text)
+        anti_alphabet = get_anti_alphabet(language)
+        encoding = guess_encoding(content, anti_alphabet)
+        content = content.decode(encoding)
+    except Exception as ex:
+        print(f'ERROR\t{ex}\t{path}')
+        raise
 
-    print(language + '/' + encoding)
+    print(f'SUCCESS\t{language}/{encoding}\t{path}')
 
     if encoding not in ('ascii', 'utf_8') and not dry_run:
         with open(path, 'w') as f:
