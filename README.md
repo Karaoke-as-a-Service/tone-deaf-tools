@@ -48,7 +48,8 @@ Run the following commands on each of your files:
    `debug_encoding.py`, if in doubt. You can use `iconv(1)` to convert the files
    to a different encoding. Pass the original, untouched file. Note that iconv
    names for encodings might be slightly different, consult `iconv -l`.
-4. run `fix_file_links.py`
+4. run `fix_file_links.py`, prints multiple lines per file - so run it without
+   parallelism (i.e. without `-P`, if you're using xargs).
 5. run `find_unused_files.py`
 6. on a case-by-case basis, try to fix the issues by deleting the files,
    ignoring them or adding the correct VIDEO/MP3/COVER/... attributes.
