@@ -49,9 +49,10 @@ Run the following commands on each of your files:
 1. run `normalize_line_endings.py`
 2. run `recode_language.py`
 3. Have a good look at your files, by inspecting any non-ascii characters. Use
-   `debug_encoding.py`, if in doubt. You can use `iconv(1)` to convert the files
-   to a different encoding. Pass the original, untouched file. Note that iconv
-   names for encodings might be slightly different, consult `iconv -l`.
+   `debug_encoding.py` on the original file, if in doubt. You can use `iconv(1)`
+   to convert the files to a different encoding. Pass the original, untouched
+   file. Note that iconv names for encodings might be slightly different,
+   consult `iconv -l`.
 4. run `fix_file_links.py`, prints multiple lines per file - so run it without
    parallelism (i.e. without `-P`, if you're using xargs).
 5. run `find_unused_files.py`
@@ -328,10 +329,11 @@ usage: debug_encoding.py [-h] file
 
 View the given file in all encodings supported by python, while highlighting
 all non-ascii characters. This tool can be used to manually figure out, which
-encoding should be used to decode a file. Displays 3 encodings side-by-side.
-If two encodings produce the same output, only the first one is shown.
-Navigate with LEFT/RIGHT, remove the middle candidate using SPACE. Quit by
-pressing 'q'.
+encoding should be used to decode a file. Pass the original file, which has
+not been touched by recode_language.py and friends. Displays 3 encodings side-
+by-side. If two encodings produce the same output, only the first one is
+shown. Navigate with LEFT/RIGHT, remove the middle candidate using SPACE. Quit
+by pressing 'q'.
 
 positional arguments:
   file
