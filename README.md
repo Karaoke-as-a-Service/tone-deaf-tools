@@ -31,8 +31,8 @@ easily.
 To run a command on all of your files, you can use `find(1)` or a combination
 of `find(1)` and `xargs(1)` for better performance:
 
-* `find songs -type f -name '*.txt' -exec python script.py "{}" \;`
-* `find songs -type f -name '*.txt' -print0 | xargs -0 -P8 -n10 python`
+* `find songs -type f -iname '*.txt' -exec python script.py "{}" \;`
+* `find songs -type f -iname '*.txt' -print0 | xargs -0 -P8 -n10 python`
 
 ### Unknown Encoding
 
