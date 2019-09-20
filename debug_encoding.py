@@ -17,6 +17,8 @@ encoding should be used to decode a file.
 Displays 3 encodings side-by-side. If two encodings produce the same output,
 only the first one is shown. Navigate with LEFT/RIGHT, remove the middle
 candidate using SPACE.
+
+Quit by pressing 'q'.
 '''
 
 
@@ -158,6 +160,8 @@ def run(stdscr, path):
             n.go_right()
         elif c == KEY_SPACEBAR:
             n.remove()
+        elif c == ord('q'):
+            break
 
         n.refresh()
 
