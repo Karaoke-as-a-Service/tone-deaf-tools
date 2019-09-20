@@ -51,10 +51,10 @@ encodings = [
     'euc_jis_2004',
     'euc_jisx0213',
     'euc_kr',
-    'gb2312',
-    'gbk',
-    'gb18030',
-    'hz',
+#    'gb2312',  # chinese
+#    'gbk',  # chinese
+#    'gb18030',  # chinese
+#    'hz',  # chinese
     'iso2022_jp',
     'iso2022_jp_1',
     'iso2022_jp_2',
