@@ -62,3 +62,19 @@ def get_artisttitle(text):
     artist = get_attribute(text, 'ARTIST')
     title = get_attribute(text, 'TITLE')
     return artist + ' - ' + title
+
+
+def get_lyrics(text):
+    songline = ""
+
+    for line in text.splitlines():
+        if not line:
+            continue
+        if line[0] in (':', '*', 'F'):
+            songline += line.split(' ', 4)[-1]
+        if line[0] == '-':
+            yield songline
+            songline = ""
+
+    if songline:
+        yield songline

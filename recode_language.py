@@ -8,7 +8,7 @@ import traceback
 from langdetect import detect
 from icu import LocaleData
 
-from _utils import find_decodings, get_artisttitle
+from _utils import find_decodings, get_artisttitle, get_lyrics
 
 HELP = '''
 Try to find the correct encoding for a given ultrastar text file. Tries to
@@ -19,22 +19,6 @@ Changes the file in place.
 '''
 
 non_ascii = re.compile('[^a-zA-Z0-9"\',. !?~\n\r*: #&_()\\[\\]-]')
-
-
-def get_lyrics(text):
-    songline = ""
-
-    for line in text.splitlines():
-        if not line:
-            continue
-        if line[0] in (':', '*', 'F'):
-            songline += line.split(' ', 4)[-1]
-        if line[0] == '-':
-            yield songline
-            songline = ""
-
-    if songline:
-        yield songline
 
 
 def guess_lyric_language(text):

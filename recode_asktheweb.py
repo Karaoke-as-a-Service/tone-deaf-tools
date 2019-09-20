@@ -6,7 +6,7 @@ import re
 import requests
 import json.decoder
 
-from _utils import find_decodings, get_artisttitle
+from _utils import find_decodings, get_artisttitle, get_lyrics
 
 
 HELP='''
@@ -29,22 +29,6 @@ def count_results(lyrics):
         raise Exception('API error: ' + data['error'])
     except json.decoder.JSONDecodeError:
         raise Exception('Unexpected API response: ' + response.content.decode())
-
-
-def get_lyrics(text):
-    songline = ""
-
-    for line in text.splitlines():
-        if not line:
-            continue
-        if line[0] in (':', '*', 'F'):
-            songline += line.split(' ', 4)[-1]
-        if line[0] == '-':
-            yield songline
-            songline = ""
-
-    if songline:
-        yield songline
 
 
 def guess_encoding(content):
