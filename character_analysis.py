@@ -22,14 +22,16 @@ def count_characters(text):
 
 
 def print_character_frequencies(path):
-    with open(path) as f:
-        text = f.read()
+    try:
+        with open(path) as f:
+            text = f.read()
 
-    print(path)
-
-    artisttitle = get_artisttitle(text)
-    frequencies = count_characters(text)
-    del frequencies[' ']
+        artisttitle = get_artisttitle(text)
+        frequencies = count_characters(text)
+        del frequencies[' ']
+    except Exception as ex:
+        print(path)
+        raise
 
     print('\n'.join(f'{char} {count}' for char, count in sorted(frequencies.items(), key=lambda x: -x[1])))
     print(path)
