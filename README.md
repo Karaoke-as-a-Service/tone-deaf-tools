@@ -281,7 +281,7 @@ optional arguments:
 
 ```console
 $ ./recode_language.py --help
-usage: recode_language.py [-h] [--dry-run] files [files ...]
+usage: recode_language.py [-h] [--dry-run] [--verbose] files [files ...]
 
 Try to find the correct encoding for a given ultrastar text file. Tries to
 determine which language a song is written in, get the alphabet for that
@@ -295,6 +295,7 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   --dry-run   just find the encoding, do not change the file.
+  --verbose
 
 ```
 

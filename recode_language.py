@@ -46,7 +46,7 @@ def get_anti_alphabet(language):
     return re.compile('[^' + ''.join(alphabet) + '0-9"\',. !?&~\n\r*: #_()\\[\\]…-]', re.IGNORECASE)
 
 
-def guess_encoding(content, anti_alphabet):
+def guess_encoding(content, anti_alphabet, verbose=False):
     best = None
     best_count = len(content) * 2
 
@@ -56,6 +56,9 @@ def guess_encoding(content, anti_alphabet):
 
         non_alphabet_chars = set(anti_alphabet.findall(lyrics) + anti_alphabet.findall(metadata))
         non_alphabet_count = len(non_alphabet_chars)
+
+        if verbose:
+            print(encoding, non_alphabet_chars, lyrics)
 
         if non_alphabet_count < best_count:
             best = encoding
@@ -67,7 +70,7 @@ def guess_encoding(content, anti_alphabet):
     return best
 
 
-def fix_encoding(path, dry_run=False):
+def fix_encoding(path, dry_run=False, verbose=False):
     with open(path, 'rb') as f:
         content = f.read()
 
@@ -80,7 +83,7 @@ def fix_encoding(path, dry_run=False):
     try:
         language = guess_lyric_language(text)
         anti_alphabet = get_anti_alphabet(language)
-        encoding = guess_encoding(content, anti_alphabet)
+        encoding = guess_encoding(content, anti_alphabet, verbose)
         content = content.decode(encoding)
 
         if encoding not in ('ascii', 'utf_8') and not dry_run:
@@ -97,11 +100,12 @@ def main(argv):
     parser = argparse.ArgumentParser(description=HELP)
     parser.add_argument('files', nargs='+')
     parser.add_argument('--dry-run', action='store_true', help='just find the encoding, do not change the file.')
+    parser.add_argument('--verbose', action='store_true')
     args = parser.parse_args(argv)
 
     for path in args.files:
         try:
-            fix_encoding(path, args.dry_run)
+            fix_encoding(path, args.dry_run, args.verbose)
         except Exception as ex:
             traceback.print_exc()
 
