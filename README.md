@@ -50,6 +50,8 @@ Run the following commands on each of your files:
    names for encodings might be slightly different, consult `iconv -l`.
 4. run `fix_file_links.py`
 5. run `find_unlinked_files.py`
+6. on a case-by-case basis, try to fix the issues by deleting the files,
+   ignoring them or adding the correct VIDEO/MP3/COVER/... attributes.
 
 ### Normalize Language (or other attributes)
 
