@@ -80,6 +80,7 @@ Scenario: your collection has mixed `#LANGUAGE` attributes like  "English",
 * [check_health.py](#check_healthpy)
 * [fix_file_links.py](#fix_file_linkspy)
 * [recode_language.py](#recode_languagepy)
+* [get_lyrics.py](#get_lyricspy)
 * [debug_encoding.py](#debug_encodingpy)
 * [normalize_line_endings.py](#normalize_line_endingspy)
 
@@ -294,6 +295,23 @@ positional arguments:
 optional arguments:
   -h, --help  show this help message and exit
   --dry-run   just find the encoding, do not change the file.
+
+```
+
+### get_lyrics.py
+
+```console
+$ ./get_lyrics.py --help
+usage: get_lyrics.py [-h] files [files ...]
+
+For a list of ultrastar text files, parse the lyrics and dump them line-by-
+line.
+
+positional arguments:
+  files
+
+optional arguments:
+  -h, --help  show this help message and exit
 
 ```
 
