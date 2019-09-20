@@ -85,6 +85,7 @@ Scenario: your collection has mixed `#LANGUAGE` attributes like  "English",
 * [check_health.py](#check_healthpy)
 * [fix_file_links.py](#fix_file_linkspy)
 * [recode_language.py](#recode_languagepy)
+* [character_analysis.py](#character_analysispy)
 * [get_lyrics.py](#get_lyricspy)
 * [debug_encoding.py](#debug_encodingpy)
 * [normalize_line_endings.py](#normalize_line_endingspy)
@@ -301,6 +302,23 @@ optional arguments:
   -h, --help  show this help message and exit
   --dry-run   just find the encoding, do not change the file.
   --verbose
+
+```
+
+### character_analysis.py
+
+```console
+$ ./character_analysis.py --help
+usage: character_analysis.py [-h] files [files ...]
+
+For a list of files, collect all characters in artist, title and lyrics. Print
+the count of each character, the filename as well as the artist/title.
+
+positional arguments:
+  files
+
+optional arguments:
+  -h, --help  show this help message and exit
 
 ```
 
