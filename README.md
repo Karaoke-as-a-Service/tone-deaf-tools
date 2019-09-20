@@ -2,7 +2,7 @@
 
 A collection of scripts to mass-edit ultrastar deluxe text files, which are also
 used by performous and others. See the list below for details. All scripts are
-written with plugabiltiy in mind, so you can import them from other python
+written with pluggability in mind, so you can import them from other python
 programs. There is no packaging or proper module, though.
 
 Many of these scripts are write-and-forget - we needed them, wrote them, ran
@@ -23,8 +23,8 @@ $ pip install -r requirements.txt
 ## Typical Workflows
 
 All of the tools read files from your disk, do something with them and, if
-applicable, write changed content back to the disk, into th same file. If they
-write, they also provid a `--dry-run` to disable that step. All commands support
+applicable, write changed content back to the disk, into the same file. If they
+write, they also provide a `--dry-run` to disable that step. All commands support
 a list of files as command line arguments, so you can process multiple files
 easily.
 
@@ -51,9 +51,9 @@ Run the following commands on each of your files:
 4. run `fix_file_links.py`
 5. run `find_unlinked_files.py`
 
-### Normalize Language (or other attributs)
+### Normalize Language (or other attributes)
 
-Scenario: your collection has mixed `#LANGUAGE` attributs like  "English",
+Scenario: your collection has mixed `#LANGUAGE` attributes like  "English",
 "Englisch", "angielski" and so on. You'd like to have only "English".
 
 1. run `./get_attribute.py LANGUAGE --no-filename (...) | sort | uniq` to get a
