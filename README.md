@@ -312,7 +312,9 @@ $ ./character_analysis.py --help
 usage: character_analysis.py [-h] files [files ...]
 
 For a list of files, collect all characters in artist, title and lyrics. Print
-the count of each character, the filename as well as the artist/title.
+the count of each character, the filename as well as the artist/title. This
+can be helpful to determine, if a file has been recoded correctly. For
+example, seeing ³, 文 or ╣ in a polish song suggests a problem.
 
 positional arguments:
   files
