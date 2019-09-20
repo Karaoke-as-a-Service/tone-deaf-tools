@@ -52,6 +52,8 @@ Run the following commands on each of your files:
 5. run `find_unlinked_files.py`
 6. on a case-by-case basis, try to fix the issues by deleting the files,
    ignoring them or adding the correct VIDEO/MP3/COVER/... attributes.
+7. run `check_health.py`
+8. on a case-by-case basis, try to fix the issues
 
 ### Normalize Language (or other attributes)
 
