@@ -3,6 +3,7 @@
 import argparse
 import sys
 import re
+import traceback
 
 from langdetect import detect
 from icu import LocaleData
@@ -97,15 +98,15 @@ def fix_encoding(path, dry_run=False):
         anti_alphabet = get_anti_alphabet(language)
         encoding = guess_encoding(content, anti_alphabet)
         content = content.decode(encoding)
+
+        if encoding not in ('ascii', 'utf_8') and not dry_run:
+            with open(path, 'w') as f:
+                f.write(content)
     except Exception as ex:
         print(f'ERROR\t{ex}\t{path}')
         raise
 
     print(f'SUCCESS\t{language}/{encoding}\t{path}')
-
-    if encoding not in ('ascii', 'utf_8') and not dry_run:
-        with open(path, 'w') as f:
-            f.write(content)
 
 
 def main(argv):
@@ -115,7 +116,10 @@ def main(argv):
     args = parser.parse_args(argv)
 
     for path in args.files:
-        fix_encoding(path, args.dry_run)
+        try:
+            fix_encoding(path, args.dry_run)
+        except Exception as ex:
+            traceback.print_exc()
 
 
 if __name__ == '__main__':
