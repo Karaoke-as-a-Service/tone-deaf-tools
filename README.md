@@ -5,6 +5,10 @@ used by performous and others. See the list below for details. All scripts are
 written with pluggability in mind, so you can import them from other python
 programs. There is no packaging or proper module, though.
 
+When using potentially destructive scripts like `recode_language.py`, make a
+backup of your files beforehand or work on a copy in the first place. Some tools
+like `debug_encoding.py` also need the original.
+
 Many of these scripts are write-and-forget - we needed them, wrote them, ran
 them and forgot about them. Even though the code quality is not up to most
 standards, they might still be useful to you. Have fun and send us fixes! ;)
