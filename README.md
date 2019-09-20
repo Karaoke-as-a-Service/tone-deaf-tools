@@ -298,11 +298,11 @@ optional arguments:
 $ ./debug_encoding.py --help
 usage: debug_encoding.py [-h] file
 
-View the given file in all encodings supported by python, while highliting all
+View the given file in all encodings supported by python, while highlighting all
 non-ascii characters. This tool can be used to manually figure out, which
 encoding should be used to decode a file. Displays 3 encodings side-by-side.
 If two encodings produce the same output, only the first one is shown.
-Navigate with LEFT/RIGHT, remove the middle candiate using SPACE.
+Navigate with LEFT/RIGHT, remove the middle candidate using SPACE.
 
 positional arguments:
   file
