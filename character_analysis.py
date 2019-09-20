@@ -23,6 +23,8 @@ def print_character_frequencies(path):
     with open(path) as f:
         text = f.read()
 
+    print(path)
+
     artisttitle = get_artisttitle(text)
     frequencies = count_characters(text)
     del frequencies[' ']
