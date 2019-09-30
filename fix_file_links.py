@@ -83,7 +83,6 @@ def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
         old_attr_name = candidates[0]
         attr_ext = os.path.splitext(old_attr_name)[1]
         new_attr_name = artisttitle + ' ' + attr + attr_ext
-        new_attr_path = song_dir + '/' + new_attr_name
 
         if old_attr_name == new_attr_name:
             print(f"ignore {attr}, no change")
@@ -92,10 +91,10 @@ def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
         if old_attr_name not in renamed:
             print(f"rewrite {attr}: {old_attr_name} => {new_attr_name}")
             if not dry_run:
-                os.rename(song_dir + '/' + old_attr_name, new_attr_path)
-            renamed[old_attr_name] = new_attr_path
+                os.rename(song_dir + '/' + old_attr_name, song_dir + '/' + new_attr_name)
+            renamed[old_attr_name] = new_attr_name
         else:
-            new_attr_path = renamed[old_attr_name]
+            new_attr_name = renamed[old_attr_name]
             print(f"rewrite {attr} (double-ref): {old_attr_name} => {new_attr_name}")
 
         lines = set_attribute(lines, attr, new_attr_name)
