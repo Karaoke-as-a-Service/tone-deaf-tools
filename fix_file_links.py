@@ -31,6 +31,8 @@ def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
     song_files = os.listdir(song_dir)
     song_files = {force_ascii(s): s for s in song_files}
 
+    renamed = {}
+
     with open(path) as f:
         text = f.read()
 
@@ -87,10 +89,15 @@ def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
             print(f"ignore {attr}, no change")
             continue
 
-        print(f"rewrite {attr}: {old_attr_name} => {new_attr_name}")
+        if old_attr_name not in renamed:
+            print(f"rewrite {attr}: {old_attr_name} => {new_attr_name}")
+            if not dry_run:
+                os.rename(song_dir + '/' + old_attr_name, new_attr_path)
+            renamed[old_attr_name] = new_attr_path
+        else:
+            new_attr_path = renamed[old_attr_name]
+            print(f"rewrite {attr} (double-ref): {old_attr_name} => {new_attr_name}")
 
-        if not dry_run:
-            os.rename(song_dir + '/' + old_attr_name, new_attr_path)
         lines = set_attribute(lines, attr, new_attr_name)
 
     if not dry_run:
