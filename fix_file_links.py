@@ -19,10 +19,7 @@ text files.
 '''
 
 def force_ascii(text):
-    if isinstance(text, str):
-        return ''.join([i if ord(i) < 128 else '' for i in text])
-    else:
-        return text.decode('ascii', errors='ignore')
+    return text.encode('ascii', errors='ignore').decode()
 
 
 def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
