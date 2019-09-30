@@ -94,7 +94,7 @@ def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
         lines = set_attribute(lines, attr, new_attr_name)
 
     if not dry_run:
-        with open(path, 'w') as f:
+        with open(new_path, 'w') as f:
             f.writelines(lines)
 
 
