@@ -22,7 +22,7 @@ def force_ascii(text):
     return text.encode('ascii', errors='ignore').decode()
 
 
-def fix_file_links(path, keep_missing_files, dry_run=False):
+def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
     print(path)
 
     song_dir = os.path.dirname(path)
@@ -53,6 +53,10 @@ def fix_file_links(path, keep_missing_files, dry_run=False):
             attr_path_ascii = force_ascii(attr_path)
         except KeyError:
             continue
+
+        if verbose:
+            print(f'processing {attr}: {attr_path_ascii}')
+            print(f'candiates: ' + ' '.join(f[0] for f in song_files.items()))
 
         candidates = [
             original
@@ -97,11 +101,12 @@ def main(argv):
     parser.add_argument('files', nargs='+')
     parser.add_argument('--keep-missing-files', action='store_true', help='do not delete lines, which reference non existing files')
     parser.add_argument('--dry-run', action='store_true')
+    parser.add_argument('--verbose', action='store_true')
     args = parser.parse_args(argv)
 
     for path in args.files:
         try:
-            fix_file_links(path, args.keep_missing_files, args.dry_run)
+            fix_file_links(path, args.keep_missing_files, args.dry_run, args.verbose)
         except Exception as ex:
             traceback.print_exc()
 
