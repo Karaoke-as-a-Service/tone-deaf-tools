@@ -101,7 +101,7 @@ def fix_file_links(path, keep_missing_files, dry_run=False, verbose=False):
 def main(argv):
     parser = argparse.ArgumentParser(description=HELP)
     parser.add_argument('files', nargs='+')
-    parser.add_argument('--keep-missing-files', action='store_true', help='do not delete lines, which reference non existing files')
+    parser.add_argument('--keep-nullpointer-lines', action='store_true', help='do not delete attributes, which reference non-existing files')
     parser.add_argument('--dry-run', action='store_true')
     parser.add_argument('--verbose', action='store_true')
     args = parser.parse_args(argv)
