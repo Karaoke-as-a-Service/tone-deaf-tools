@@ -5,6 +5,7 @@ import shutil
 import os
 import argparse
 import traceback
+import unicodedata
 
 from _utils import set_attribute, get_attribute, get_artisttitle
 
@@ -19,6 +20,7 @@ text files.
 '''
 
 def force_ascii(text):
+    text = unicodedata.normalize('NFC', text)  # combine decomposed characters
     return text.encode('ascii', errors='ignore').decode()
 
 
