@@ -67,7 +67,7 @@ def lower_case_attribute(text, path):
             yield f'attribute {attr} is lower case'
 
 
-def check_health(path):
+def check_health(path, only_check):
 
     try:
         with open(path) as f:
@@ -78,6 +78,8 @@ def check_health(path):
     problems = []
 
     for description, check in checks:
+        if only_check and description not in only_check:
+            continue
         problems.extend(check(text, path))
 
     return problems
@@ -91,12 +93,13 @@ def main(argv):
     description += '\n' + '\n'.join(' ' + c[0] for c in checks)
 
     parser = argparse.ArgumentParser(description=description, formatter_class=argparse.RawTextHelpFormatter)
+    parser.add_argument('--only-check', action='append', help='restrict checking to the given ones. encoding is always checked.')
     parser.add_argument('files', nargs='+')
 
     args = parser.parse_args(argv)
 
     for path in args.files:
-        problems = check_health(path)
+        problems = check_health(path, args.only_check)
         if problems:
             print(path)
             print('\n'.join('  ' + p for p in problems))
