@@ -52,7 +52,7 @@ file_exists('VIDEO')
 file_exists('BACKGROUND')
 
 
-@check(f'must have BACKGROUND or VIDEO')
+@check(f'Must have BACKGROUND or VIDEO')
 def has_background_or_video(text, path):
     attrs = get_attribut_names(text)
 
