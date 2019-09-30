@@ -115,7 +115,7 @@ def main(argv):
 
     for path in args.files:
         try:
-            fix_file_links(path, args.keep_missing_files, args.dry_run, args.verbose)
+            fix_file_links(path, args.keep_nullpointer_lines, args.dry_run, args.verbose)
         except Exception as ex:
             traceback.print_exc()
 
