@@ -3,6 +3,7 @@
 import argparse
 import sys
 import os
+import re
 
 from _utils import get_attribute, get_attribut_names
 
@@ -69,7 +70,7 @@ def lower_case_attribute(text, path):
 
 @check('There is an E line')
 def lower_case_attribute(text, path):
-    if '\nE\n' not in text:
+    if not re.search('\nE\s*\n', text):
         yield 'there is no E line'
 
 
