@@ -233,7 +233,7 @@ optional arguments:
 
 ```console
 $ ./check_health.py --help
-usage: check_health.py [-h] files [files ...]
+usage: check_health.py [-h] [--only-check ONLY_CHECK] files [files ...]
 
 For each given file, check the following conditions. Exit with exit-code 1, if at least one is not met.
 
@@ -246,7 +246,7 @@ For each given file, check the following conditions. Exit with exit-code 1, if a
  File referenced in COVER must exist, if present
  File referenced in VIDEO must exist, if present
  File referenced in BACKGROUND must exist, if present
- must have BACKGROUND or VIDEO
+ Must have BACKGROUND or VIDEO
  All attribute names must be UPPERCASE
  There is an E line
 
@@ -254,7 +254,9 @@ positional arguments:
   files
 
 optional arguments:
-  -h, --help  show this help message and exit
+  -h, --help            show this help message and exit
+  --only-check ONLY_CHECK
+                        restrict checking to the given ones. encoding is always checked.
 
 ```
 
@@ -262,7 +264,8 @@ optional arguments:
 
 ```console
 $ ./fix_file_links.py --help
-usage: fix_file_links.py [-h] [--keep-missing-files] [--dry-run]
+usage: fix_file_links.py [-h] [--keep-nullpointer-lines] [--dry-run]
+                         [--verbose]
                          files [files ...]
 
 Try to fix file links in #COVER, #MP3, #VIDEO and #BACKGROUND, which do not
@@ -278,9 +281,11 @@ positional arguments:
 
 optional arguments:
   -h, --help            show this help message and exit
-  --keep-missing-files  do not delete lines, which reference non existing
+  --keep-nullpointer-lines
+                        do not delete attributes, which reference non-existing
                         files
   --dry-run
+  --verbose
 
 ```
 
