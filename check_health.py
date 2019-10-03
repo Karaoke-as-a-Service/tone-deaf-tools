@@ -67,6 +67,12 @@ def lower_case_attribute(text, path):
             yield f'attribute {attr} is lower case'
 
 
+@check('There is an E line')
+def lower_case_attribute(text, path):
+    if '\nE\n' not in text:
+        yield 'there is no E line'
+
+
 def check_health(path, only_check):
 
     try:

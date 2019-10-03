@@ -248,6 +248,7 @@ For each given file, check the following conditions. Exit with exit-code 1, if a
  File referenced in BACKGROUND must exist, if present
  must have BACKGROUND or VIDEO
  All attribute names must be UPPERCASE
+ There is an E line
 
 positional arguments:
   files
