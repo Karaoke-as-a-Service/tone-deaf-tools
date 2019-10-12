@@ -5,6 +5,7 @@ from contextlib import suppress
 import requests
 import os
 import sys
+import traceback
 
 from _utils import set_attribute, get_attribute, get_artisttitle
 
@@ -76,7 +77,10 @@ def main(argv):
     args = parser.parse_args(argv)
 
     for path in args.files:
-        add_cover_to_song(path, args.force, args.service)
+        try:
+            add_cover_to_song(path, args.force, args.service)
+        except Exception as ex:
+            traceback.print_exc()
 
 
 if __name__ == '__main__':
