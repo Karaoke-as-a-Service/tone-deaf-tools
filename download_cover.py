@@ -37,15 +37,22 @@ def download_cover_file(artisttitle, service):
     return extension, requests.get(cover_url).content
 
 
+def has_working_cover(songdir, text):
+    with suppress(KeyError):
+        if os.path.exists(songdir + '/' + get_attribute(text, 'COVER')):
+            return True
+
+    return False
+
+
 def add_cover_to_song(path, force, service):
     songdir = os.path.dirname(path)
 
     with open(path) as f:
         text = f.read()
 
-    with suppress(KeyError):
-        if not force and os.path.exists(songdir + '/' + get_attribute(text, 'COVER')):
-            return
+    if not force and has_working_cover(songdir, text):
+        return
 
     artisttitle = get_artisttitle(text)
     extension, cover_content = download_cover_file(artisttitle, service)
