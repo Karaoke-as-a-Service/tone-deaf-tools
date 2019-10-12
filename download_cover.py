@@ -4,8 +4,11 @@ import argparse
 from contextlib import suppress
 import requests
 import os
+import io
 import sys
 import traceback
+
+from PIL import Image
 
 from _utils import set_attribute, get_attribute, get_artisttitle
 
@@ -59,6 +62,13 @@ def add_cover_to_song(path, force, service):
     extension, cover_content = download_cover_file(artisttitle, service)
     coverfile = 'cover' + extension
     coverpath = songdir + '/' + coverfile
+
+    im = Image.open(io.BytesIO(cover_content))
+    width, height = im.size
+    ratio = width / height
+
+    if ratio < 0.7 or ratio > 1.3:
+        return
 
     with open(coverpath, 'wb') as f:
         f.write(cover_content)
