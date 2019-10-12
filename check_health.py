@@ -4,6 +4,7 @@ import argparse
 import sys
 import os
 import re
+from PIL import Image
 
 from _utils import get_attribute, get_attribut_names
 
@@ -42,6 +43,24 @@ def file_exists(attr):
         except KeyError:
             pass
 
+
+def is_image_file(attr):
+    @check(f'{attr} is an image file')
+    def is_image_file(text, path):
+        try:
+            attr_path = get_attribute(text, attr)
+        except KeyError:
+            return
+
+        songdir = os.path.dirname(path)
+
+        try:
+            Image.open(os.path.join(songdir, attr_path))
+        except Exception as ex:
+            if 'cannot identify' in str(ex):
+                yield f'file referenced in attribute {attr} is not an image'
+
+
 required_attribute('MP3')
 required_attribute('TITLE')
 required_attribute('ARTIST')
@@ -52,6 +71,8 @@ file_exists('COVER')
 file_exists('VIDEO')
 file_exists('BACKGROUND')
 
+is_image_file('COVER')
+is_image_file('BACKGROUND')
 
 @check(f'Must have BACKGROUND or VIDEO')
 def has_background_or_video(text, path):
