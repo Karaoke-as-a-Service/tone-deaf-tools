@@ -63,6 +63,9 @@ def add_cover_to_song(path, force, service):
     coverfile = 'cover' + extension
     coverpath = songdir + '/' + coverfile
 
+    if extension == '.webp':
+        return
+
     im = Image.open(io.BytesIO(cover_content))
     width, height = im.size
     ratio = width / height
