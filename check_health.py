@@ -32,30 +32,35 @@ def required_attribute(attr):
             yield f'attribute {attr} missing'
 
 
+def _get_attr_path(text, path, attr):
+    attr_path = get_attribute(text, attr)
+    songdir = os.path.dirname(path)
+    attr_path = os.path.join(songdir, attr_path)
+    return attr_path
+
+
 def file_exists(attr):
     @check(f'File referenced in {attr} must exist, if present')
     def file_exists(text, path):
         try:
-            songdir = os.path.dirname(path)
-            attr_path = get_attribute(text, attr)
-            if not os.path.isfile(os.path.join(songdir, attr_path)):
-                yield f'file referenced in attribute {attr} not found: {attr_path}'
+            attr_path = _get_attr_path(text, path, attr)
         except KeyError:
-            pass
+            return
+
+        if not os.path.isfile(attr_path):
+            yield f'file referenced in attribute {attr} not found: {attr_path}'
 
 
 def is_image_file(attr):
     @check(f'{attr} is an image file')
     def is_image_file(text, path):
         try:
-            attr_path = get_attribute(text, attr)
+            attr_path = _get_attr_path(text, path, attr)
         except KeyError:
             return
 
-        songdir = os.path.dirname(path)
-
         try:
-            Image.open(os.path.join(songdir, attr_path))
+            Image.open(attr_path)
         except Exception as ex:
             if 'cannot identify' in str(ex):
                 yield f'file referenced in attribute {attr} is not an image'
