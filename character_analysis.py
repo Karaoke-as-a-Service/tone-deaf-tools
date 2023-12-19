@@ -51,7 +51,10 @@ def main(argv):
     parser.add_argument('--ignore-chars', default='', help='letters or symbols to skip during analysis, as a regex character class. passing "qwerty" ignores q, w, e, ...')
     args = parser.parse_args(argv)
 
-    ignore_chars = re.compile(f'^[{args.ignore_chars}]$')
+    if args.ignore_chars:
+        ignore_chars = re.compile(f'^[{args.ignore_chars}]$')
+    else:
+        ignore_chars = re.compile(f'^$')
 
     for path in args.files:
         print_character_frequencies(path, ignore_chars)
