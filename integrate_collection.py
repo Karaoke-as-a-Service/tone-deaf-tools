@@ -97,7 +97,7 @@ class SongCollection:
         for path in self.root.glob("**/*.txt"):
             self.songs.append(Song(path))
 
-    def find_matches(self, needle, score_min, score_max):
+    def find_matches(self, needle):
         matchers = {
             "TEXT": (lambda a, b: 100 if a.text == b.text else 0),
             "TITLE": (
@@ -117,12 +117,14 @@ class SongCollection:
             for name, mfunc in matchers.items():
                 mscore = mfunc(song, needle)
 
-                if score_min < mscore < score_max:
+                if mscore > 0:
                     matched_matchers.append(name)
                     score += mscore
 
             if matched_matchers:
-                matched_songs.append((song, int(score), matched_matchers))
+                matched_songs.append(
+                    (song, int(max(min(score, 100), 0)), matched_matchers)
+                )
 
         matched_songs.sort(key=(lambda s: s[1]), reverse=True)
 
@@ -151,7 +153,11 @@ def main(argv):
     col_new.load()
 
     for song in col_new.songs:
-        matches = col_main.find_matches(song, score_min, score_max)
+        matches = col_main.find_matches(song)
+        max_score = max(m[1] for m in matches)
+
+        if not (score_min <= max_score <= score_max):
+            continue
 
         if args.dry_run and matches:
             print(song)
