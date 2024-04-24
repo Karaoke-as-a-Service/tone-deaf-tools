@@ -153,6 +153,11 @@ def main(argv):
     for song in col_new.songs:
         matches = col_main.find_matches(song, score_min, score_max)
 
+        if args.dry_run and matches:
+            print(song)
+            for m in matches:
+                print(f"=> {m}")
+
         if matches:
             song_directory = song.path.parent
             new_name = Path(args.TARGET) / song_directory.name
