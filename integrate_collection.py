@@ -69,18 +69,20 @@ def lev(a, b):
     if a is None or b is None:
         return 0
 
-    a = a.lower().replace("[video]", "")
-    b = b.lower().replace("[video]", "")
-    a = a.lower().replace("(duett)", "")
-    b = b.lower().replace("(duett)", "")
-    a = a.lower().replace("-", "")
-    b = b.lower().replace("-", "")
-    a = a.lower().replace(",", "")
-    b = b.lower().replace(",", "")
-    a = a.lower().replace("&", "")
-    b = b.lower().replace("&", "")
-    a = a.lower().replace(" ", "")
-    b = b.lower().replace(" ", "")
+    remove = [
+        "[video]",
+        "(duett)",
+        "-",
+        ",",
+        ".",
+        "&",
+        " ",
+        "the",
+    ]
+
+    for r in remove:
+        a = a.lower().replace(r, "")
+        b = b.lower().replace(r, "")
 
     return int(Levenshtein.ratio(a, b) * 100)
 
