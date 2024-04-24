@@ -142,6 +142,7 @@ def main(argv):
     parser.add_argument("SCORE_RANGE")
     parser.add_argument("TARGET")
     parser.add_argument("--dry-run", action="store_true", default=False)
+    parser.add_argument("--filter")
     args = parser.parse_args(argv)
 
     score_min, _, score_max = args.SCORE_RANGE.partition("-")
@@ -155,6 +156,9 @@ def main(argv):
     col_new.load()
 
     for song in col_new.songs:
+        if args.filter and args.filter.lower() not in str(song).lower():
+            continue
+
         matches = col_main.find_matches(song)
         max_score = max(m[1] for m in matches)
 
