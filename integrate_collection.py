@@ -168,7 +168,7 @@ def main(argv):
     col_new = SongCollection(args.NEW)
     col_new.load()
 
-    for song in col_new.songs:
+    for n, song in enumerate(col_new.songs):
         if args.filter and args.filter.lower() not in str(song).lower():
             continue
 
@@ -180,7 +180,7 @@ def main(argv):
 
         if args.dry_run and matches:
             print()
-            print(song)
+            print(f"{n}/{len(col_new.songs)-1} {song}")
             for m in matches[:3]:
                 print(f"=> {m}")
 
