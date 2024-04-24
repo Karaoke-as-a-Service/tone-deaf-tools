@@ -169,6 +169,7 @@ def main(argv):
             continue
 
         if args.dry_run and matches:
+            print()
             print(song)
             for m in matches[:3]:
                 print(f"=> {m}")
