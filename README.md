@@ -79,6 +79,7 @@ Scenario: your collection has mixed `#LANGUAGE` attributes like  "English",
 * [recode_asktheweb.py](#recode_askthewebpy)
 * [get_attribute.py](#get_attributepy)
 * [list_attributes.py](#list_attributespy)
+* [integrate_collection.py](#integrate_collectionpy)
 * [download_cover.py](#download_coverpy)
 * [find_unused_files.py](#find_unused_filespy)
 * [set_attribute.py](#set_attributepy)
@@ -162,6 +163,47 @@ positional arguments:
 options:
   -h, --help     show this help message and exit
   --no-filename  just print the name, not the file path.
+
+```
+
+### integrate_collection.py
+
+```console
+$ ./integrate_collection.py --help
+usage: integrate_collection.py [-h] [--dry-run] MAIN NEW SCORE_RANGE TARGET
+
+Integrate songs from a NEW collection into an existing MAIN collection. Each
+song in NEW is scored from 0 to 100. If the score is within the given range,
+the song is the moved to TARGET.
+
+./integrate_collection.py my_collection new_songs 80-100 duplicate_songs
+=> move all songs from new_songs with a score between 80 and 100 to duplicate_songs
+
+./integrate_collection.py my_collection new_songs -50 unknown_songs
+=> move all songs from new_songs with a score below 50 to unknown_songs
+
+Score may be given as
+  80-100 (=> 80 to 100)
+    -50  (=> 0 to 50)
+  80-    (=> 80 to 100)
+
+Scoring cirteria:
+
+* file matches byte-wise
+* title matches
+* title and artist match
+* number of singers matches
+* ... and many more
+
+positional arguments:
+  MAIN
+  NEW
+  SCORE_RANGE
+  TARGET
+
+options:
+  -h, --help   show this help message and exit
+  --dry-run
 
 ```
 

@@ -37,7 +37,7 @@ def get_attribut_names(text):
 
 def get_attribute(text, attribute):
     try:
-        return re.search("#" + attribute + ":(.*)", text).groups(1)[0]
+        return re.search("#" + re.escape(attribute) + ":(.*)", text).groups(1)[0]
     except AttributeError:
         raise KeyError(attribute)
 
@@ -61,6 +61,11 @@ def get_artisttitle(text):
     artist = get_attribute(text, "ARTIST")
     title = get_attribute(text, "TITLE")
     return artist + " - " + title
+
+
+def get_number_of_singers(text):
+    singers = len(re.findall("^P[0-9]+$", text))
+    return singers - 1 if singers > 1 else singers
 
 
 def get_lyrics(text):
