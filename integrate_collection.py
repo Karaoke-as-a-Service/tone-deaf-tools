@@ -155,7 +155,7 @@ def main(argv):
 
         if args.dry_run and matches:
             print(song)
-            for m in matches:
+            for m in matches[:3]:
                 print(f"=> {m}")
 
         if matches:
