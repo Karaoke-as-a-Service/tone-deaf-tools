@@ -91,6 +91,9 @@ class SongCollection:
         self.songs = []
 
     def load(self):
+        if not self.root.exists():
+            raise FileNotFoundError(self.root)
+
         for path in self.root.glob("**/*.txt"):
             self.songs.append(Song(path))
 
@@ -137,14 +140,14 @@ def main(argv):
     parser.add_argument("--dry-run", action="store_true", default=False)
     args = parser.parse_args(argv)
 
-    score_min, _, score_max = args.score_range.partition("-")
+    score_min, _, score_max = args.SCORE_RANGE.partition("-")
     score_min = int(score_min if score_min else 0)
     score_max = int(score_max if score_max else 100)
 
-    col_main = SongCollection(args.collection_main)
+    col_main = SongCollection(args.MAIN)
     col_main.load()
 
-    col_new = SongCollection(args.collection_new)
+    col_new = SongCollection(args.NEW)
     col_new.load()
 
     for song in col_new.songs:
@@ -152,7 +155,7 @@ def main(argv):
 
         if matches:
             song_directory = song.path.parent
-            new_name = Path(args.target) / song_directory.name
+            new_name = Path(args.TARGET) / song_directory.name
 
             print(f"{song_directory} => {new_name}")
             if not args.dry_run:
