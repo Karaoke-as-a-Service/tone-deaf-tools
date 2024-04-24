@@ -63,6 +63,31 @@ class Song:
     def __repr__(self):
         return f"{self.ARTIST} - {self.TITLE}"
 
+    def match(self, needle):
+        if self.text == needle.text:
+            return 100, ["TEXT"]
+
+        lev_artist = lev(self.ARTIST, needle.ARTIST)
+        lev_title = lev(self.ARTIST, needle.ARTIST)
+
+        matchers = {
+            "TITLE": (lambda: lev_title * (1 if lev_artist > 90 else 0.5)),
+            "ARTIST": (lambda: 10 if lev_artist > 90 else 0),
+            "SINGERS": (lambda: -100 if self.singers != needle.singers else 0),
+        }
+
+        matched_matchers = []
+        score = 0
+
+        for name, mfunc in matchers.items():
+            mscore = mfunc()
+
+            if mscore > 0:
+                matched_matchers.append(name)
+                score += mscore
+
+        return score, matched_matchers
+
 
 @functools.cache
 def lev(a, b):
@@ -103,28 +128,10 @@ class SongCollection:
             self.songs.append(Song(path))
 
     def find_matches(self, needle):
-        matchers = {
-            "TEXT": (lambda a, b: 100 if a.text == b.text else 0),
-            "TITLE": (
-                lambda a, b: lev(a.TITLE, b.TITLE)
-                * (1 if lev(a.ARTIST, b.ARTIST) > 90 else 0.5)
-            ),
-            "ARTIST": (lambda a, b: 10 if lev(a.ARTIST, b.ARTIST) > 90 else 0),
-            "SINGERS": (lambda a, b: -100 if a.singers != b.singers else 0),
-        }
-
         matched_songs = []
 
         for song in self.songs:
-            matched_matchers = []
-            score = 0
-
-            for name, mfunc in matchers.items():
-                mscore = mfunc(song, needle)
-
-                if mscore > 0:
-                    matched_matchers.append(name)
-                    score += mscore
+            score, matched_matchers = song.match(needle)
 
             if matched_matchers:
                 matched_songs.append(
