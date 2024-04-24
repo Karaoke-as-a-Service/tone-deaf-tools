@@ -6,6 +6,7 @@ import re
 import sys
 
 from _builtinencodings import encodings
+from _curses_helpers import KEY_SPACEBAR, Window, re_nonascii
 
 HELP = """
 View the given file in all encodings supported by python, while highlighting all
@@ -19,43 +20,6 @@ candidate using SPACE.
 
 Quit by pressing 'q'.
 """
-
-nonascii = re.compile("[^a-zA-Z0-9#:~,._ -\[\]]")
-KEY_SPACEBAR = 32
-
-
-class Window:
-    def __init__(self, y, x):
-        self.height = 15
-        self.width = 55
-        self.win = curses.newwin(self.height, self.width, y, x)
-        self.title = ""
-        self.text = ""
-
-    def set_title(self, title):
-        self.title = title
-        self.refresh()
-
-    def set_text(self, text):
-        self.text = text
-        self.refresh()
-
-    def refresh(self):
-        self.win.clear()
-        self.win.border()
-        self.win.addstr(0, 1, self.title)
-
-        y = 2
-        for line in self.text.splitlines():
-            line = line[: self.width - 2]
-            self.win.addstr(y, 2, line)
-            for x in (m.start() for m in nonascii.finditer(line)):
-                self.win.chgat(y, 2 + x, 1, curses.color_pair(3))
-            y += 1
-            if y > self.height - 3:
-                break
-
-        self.win.refresh()
 
 
 class Navigator:
@@ -131,7 +95,7 @@ def variants(content):
         seen.add(text)
 
         text = text.replace("\0", "")  # null bytes confuse ncurses
-        demo_lines = [l for l in text.splitlines() if nonascii.search(l)]
+        demo_lines = [l for l in text.splitlines() if re_nonascii.search(l)]
 
         yield enc, "\n".join(demo_lines)
 
