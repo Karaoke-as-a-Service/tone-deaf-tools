@@ -145,7 +145,10 @@ def main(argv):
     parser.add_argument("SCORE_RANGE")
     parser.add_argument("TARGET")
     parser.add_argument("--dry-run", action="store_true", default=False)
-    parser.add_argument("--filter")
+    parser.add_argument(
+        "--filter",
+        help="only check songs in NEW that contain the given string in artist or title",
+    )
     args = parser.parse_args(argv)
 
     score_min, _, score_max = args.SCORE_RANGE.partition("-")
