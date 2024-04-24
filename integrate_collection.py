@@ -166,7 +166,7 @@ def main(argv):
             continue
 
         matches = col_main.find_matches(song)
-        max_score = max(m[1] for m in matches)
+        max_score = max([m[1] for m in matches] or [0])
 
         if not (score_min <= max_score <= score_max):
             continue
