@@ -29,9 +29,9 @@ KEY_SPACEBAR = 32
 
 class Window():
     def __init__(self, y, x):
-        self.heigth = 15
+        self.height = 15
         self.width = 55
-        self.win = curses.newwin(self.heigth, self.width, y, x)
+        self.win = curses.newwin(self.height, self.width, y, x)
         self.title = ''
         self.text = ''
 
@@ -55,7 +55,7 @@ class Window():
             for x in (m.start() for m in nonascii.finditer(line)):
                 self.win.chgat(y, 2 + x, 1, curses.color_pair(3))
             y += 1
-            if y > self.heigth - 3:
+            if y > self.height - 3:
                 break
 
         self.win.refresh()
