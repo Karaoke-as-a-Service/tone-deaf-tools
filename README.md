@@ -101,7 +101,7 @@ directory and add them to the given README markdown file, starting at "##
 Tools". Ignores scripts whose name starts with an underscore and scripts that
 don't exit with 0, when called with --help.
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --readme-path README_PATH
                         file to read and write to
@@ -122,7 +122,7 @@ encoding with the most results. Changes the file in place.
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
   --dry-run   just find the encoding, do not change the file.
 
@@ -142,7 +142,7 @@ positional arguments:
   attribute
   files
 
-optional arguments:
+options:
   -h, --help     show this help message and exit
   --no-filename  just print the value, not the file path.
 
@@ -159,7 +159,7 @@ For a list of ultrastar text files, find all attribute names and print them.
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help     show this help message and exit
   --no-filename  just print the name, not the file path.
 
@@ -181,7 +181,7 @@ positional arguments:
               with "enius.com"
   files
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
   --force     download a new cover regardless of an existing one; do not
               remove the old one.
@@ -201,7 +201,7 @@ names.
 positional arguments:
   directory
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
 
 ```
@@ -222,7 +222,7 @@ positional arguments:
   value
   files
 
-optional arguments:
+options:
   -h, --help       show this help message and exit
   --search SEARCH  only replace, if the old value matches
   --dry-run
@@ -255,7 +255,7 @@ For each given file, check the following conditions. Exit with exit-code 1, if a
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --only-check ONLY_CHECK
                         restrict checking to the given ones. encoding is always checked.
@@ -281,7 +281,7 @@ encoded text files.
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --keep-nullpointer-lines
                         do not delete attributes, which reference non-existing
@@ -306,7 +306,7 @@ place.
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
   --dry-run   just find the encoding, do not change the file.
   --verbose
@@ -328,7 +328,7 @@ example, seeing ³, 文 or ╣ in a polish song suggests a problem.
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help            show this help message and exit
   --ignore-chars IGNORE_CHARS
                         letters or symbols to skip during analysis, as a regex
@@ -348,7 +348,7 @@ line.
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
 
 ```
@@ -370,7 +370,7 @@ by pressing 'q'.
 positional arguments:
   file
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
 
 ```
@@ -388,7 +388,7 @@ which includes all classic combinations, as well as a few unicode extras.
 positional arguments:
   files
 
-optional arguments:
+options:
   -h, --help  show this help message and exit
 
 ```
