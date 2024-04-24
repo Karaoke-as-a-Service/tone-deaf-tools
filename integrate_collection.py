@@ -80,9 +80,12 @@ def lev(a, b):
         "the",
     ]
 
+    a = a.lower()
+    b = b.lower()
+
     for r in remove:
-        a = a.lower().replace(r, "")
-        b = b.lower().replace(r, "")
+        a = a.replace(r, "")
+        b = b.replace(r, "")
 
     return int(Levenshtein.ratio(a, b) * 100)
 
