@@ -1,4 +1,4 @@
-requests==2.22.0
 langdetect==1.0.7
-PyICU==2.13.0
 Pillow==10.3.0
+PyICU==2.13.0
+requests==2.22.0

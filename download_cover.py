@@ -1,31 +1,36 @@
 #!/usr/bin/env python3
 
 import argparse
-from contextlib import suppress
-import requests
-import os
 import io
+import os
 import sys
 import traceback
+from contextlib import suppress
 
+import requests
 from PIL import Image
 
-from _utils import set_attribute, get_attribute, get_artisttitle
+from _utils import get_artisttitle, get_attribute, set_attribute
 
-HELP='''
+HELP = """
 Try to find a cover image for given ultrastar text files online, download them,
 set the #COVER attribute and rewrite the file. Does nothing, if there already
 is a cover file. Prints the paths of all changed files. Only accepts UTF-8
 encoded files.
-'''
+"""
 
 
 def get_cover_url(name, service):
-    r = requests.get(f'https://{service}/api/search/multi', params={
-        'per_page': '1',
-        'q': name,
-    })
-    return r.json()['response']['sections'][0]['hits'][0]['result']['song_art_image_url']
+    r = requests.get(
+        f"https://{service}/api/search/multi",
+        params={
+            "per_page": "1",
+            "q": name,
+        },
+    )
+    return r.json()["response"]["sections"][0]["hits"][0]["result"][
+        "song_art_image_url"
+    ]
 
 
 def download_cover_file(artisttitle, service):
@@ -34,16 +39,16 @@ def download_cover_file(artisttitle, service):
     except:
         return None
 
-    if 'default_cover_image' in cover_url:
+    if "default_cover_image" in cover_url:
         return None
 
-    extension = os.path.splitext(cover_url)[1].partition('?')[0]
+    extension = os.path.splitext(cover_url)[1].partition("?")[0]
     return extension, requests.get(cover_url).content
 
 
 def has_working_cover(songdir, text):
     with suppress(KeyError):
-        if os.path.exists(songdir + '/' + get_attribute(text, 'COVER')):
+        if os.path.exists(songdir + "/" + get_attribute(text, "COVER")):
             return True
 
     return False
@@ -60,10 +65,10 @@ def add_cover_to_song(path, force, service):
 
     artisttitle = get_artisttitle(text)
     extension, cover_content = download_cover_file(artisttitle, service)
-    coverfile = 'cover' + extension
-    coverpath = songdir + '/' + coverfile
+    coverfile = "cover" + extension
+    coverpath = songdir + "/" + coverfile
 
-    if extension == '.webp':
+    if extension == ".webp":
         return
 
     im = Image.open(io.BytesIO(cover_content))
@@ -73,20 +78,27 @@ def add_cover_to_song(path, force, service):
     if ratio < 0.7 or ratio > 1.3:
         return
 
-    with open(coverpath, 'wb') as f:
+    with open(coverpath, "wb") as f:
         f.write(cover_content)
 
-    with open(path, 'w') as f:
-        f.writelines(set_attribute(text.splitlines(), 'COVER', coverfile))
+    with open(path, "w") as f:
+        f.writelines(set_attribute(text.splitlines(), "COVER", coverfile))
 
     print(path)
 
 
 def main(argv):
     parser = argparse.ArgumentParser(description=HELP)
-    parser.add_argument('service', help='name of the service to download covers from, a possible one ends with "enius.com"')
-    parser.add_argument('files', nargs='+')
-    parser.add_argument('--force', action='store_true', help='download a new cover regardless of an existing one; do not remove the old one.')
+    parser.add_argument(
+        "service",
+        help='name of the service to download covers from, a possible one ends with "enius.com"',
+    )
+    parser.add_argument("files", nargs="+")
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="download a new cover regardless of an existing one; do not remove the old one.",
+    )
     args = parser.parse_args(argv)
 
     for path in args.files:
@@ -96,5 +108,5 @@ def main(argv):
             traceback.print_exc()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main(sys.argv[1:])

@@ -1,11 +1,10 @@
-#!/usr/bin/env python3
-
 import re
 
 from _builtinencodings import encodings
 
-
-box_char = re.compile('[─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿]')
+box_char = re.compile(
+    "[─━│┃┄┅┆┇┈┉┊┋┌┍┎┏┐┑┒┓└┕┖┗┘┙┚┛├┝┞┟┠┡┢┣┤┥┦┧┨┩┪┫┬┭┮┯┰┱┲┳┴┵┶┷┸┹┺┻┼┽┾┿╀╁╂╃╄╅╆╇╈╉╊╋╌╍╎╏═║╒╓╔╕╖╗╘╙╚╛╜╝╞╟╠╡╢╣╤╥╦╧╨╩╪╫╬╭╮╯╰╱╲╳╴╵╶╷╸╹╺╻╼╽╾╿]"
+)
 
 
 def find_decodings(content):
@@ -20,7 +19,7 @@ def find_decodings(content):
 
         if text in seen:
             continue
-        if '\n#' not in text:  # some encodings produce complete gibberish - skip them
+        if "\n#" not in text:  # some encodings produce complete gibberish - skip them
             continue
 
         if box_char.findall(text):
@@ -33,12 +32,12 @@ def find_decodings(content):
 
 
 def get_attribut_names(text):
-    return re.findall('#(.*):', text)
+    return re.findall("#(.*):", text)
 
 
 def get_attribute(text, attribute):
     try:
-        return re.search('#' + attribute + ':(.*)', text).groups(1)[0]
+        return re.search("#" + attribute + ":(.*)", text).groups(1)[0]
     except AttributeError:
         raise KeyError(attribute)
 
@@ -46,22 +45,22 @@ def get_attribute(text, attribute):
 def set_attribute(lines, attr, value):
     found = False
     for line in lines:
-        if line.startswith(f'#{attr}:'):
+        if line.startswith(f"#{attr}:"):
             found = True
             if value is not None:
-                yield f'#{attr}:{value}\n'
+                yield f"#{attr}:{value}\n"
         else:
-            line = line.strip('\n')
-            if not found and not line.startswith('#'):
+            line = line.strip("\n")
+            if not found and not line.startswith("#"):
                 found = True
-                yield f'#{attr}:{value}\n'
-            yield f'{line}\n'
+                yield f"#{attr}:{value}\n"
+            yield f"{line}\n"
 
 
 def get_artisttitle(text):
-    artist = get_attribute(text, 'ARTIST')
-    title = get_attribute(text, 'TITLE')
-    return artist + ' - ' + title
+    artist = get_attribute(text, "ARTIST")
+    title = get_attribute(text, "TITLE")
+    return artist + " - " + title
 
 
 def get_lyrics(text):
@@ -70,9 +69,9 @@ def get_lyrics(text):
     for line in text.splitlines():
         if not line:
             continue
-        if line[0] in (':', '*', 'F'):
-            songline += line.split(' ', 4)[-1]
-        if line[0] == '-':
+        if line[0] in (":", "*", "F"):
+            songline += line.split(" ", 4)[-1]
+        if line[0] == "-":
             yield songline
             songline = ""
 
