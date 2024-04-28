@@ -1,11 +1,7 @@
 #!/usr/bin/env python3
 
 import argparse
-import dataclasses
 import functools
-import glob
-import hashlib
-import math
 import os
 import sys
 from pathlib import Path
@@ -93,17 +89,6 @@ class Song:
 
 @functools.cache
 def lev(a, b):
-    cachekey = hashlib.sha1((a or "").encode("utf-8"))
-    cachekey.update((b or "").encode("utf-8"))
-    cachekey = cachekey.hexdigest()
-    cachepath = f".cache/{cachekey[:2]}/{cachekey}"
-
-    try:
-        with open(cachepath) as f:
-            return int(f.read())
-    except:
-        pass
-
     if a is None or b is None:
         return 0
 
@@ -125,13 +110,7 @@ def lev(a, b):
         a = a.replace(r, "")
         b = b.replace(r, "")
 
-    score = int(Levenshtein.ratio(a, b) * 100)
-
-    os.makedirs(os.path.dirname(cachepath), exist_ok=True)
-    with open(cachepath, "w") as f:
-        f.write(str(score))
-
-    return score
+    return int(Levenshtein.ratio(a, b) * 100)
 
 
 class SongCollection:
