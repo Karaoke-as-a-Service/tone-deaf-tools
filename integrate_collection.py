@@ -158,9 +158,12 @@ def main(argv):
     )
     args = parser.parse_args(argv)
 
-    score_min, _, score_max = args.SCORE_RANGE.partition("-")
-    score_min = int(score_min if score_min else 0)
-    score_max = int(score_max if score_max else 100)
+    score_min, sep, score_max = args.SCORE_RANGE.partition("-")
+    if sep:
+        score_min = int(score_min if score_min else 0)
+        score_max = int(score_max if score_max else 100)
+    else:
+        score_min = score_max = int(score_min)
 
     col_main = SongCollection(args.MAIN)
     col_main.load()
