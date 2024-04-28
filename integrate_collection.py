@@ -6,7 +6,7 @@ import functools
 import glob
 import hashlib
 import math
-import shelve
+import os
 import sys
 from pathlib import Path
 
@@ -38,8 +38,6 @@ Scoring cirteria:
 * number of singers matches
 * ... and many more
 """
-
-SHELVE = shelve.open("inteograte_collection.cache")
 
 
 class Song:
@@ -98,9 +96,13 @@ def lev(a, b):
     cachekey = hashlib.sha1((a or "").encode("utf-8"))
     cachekey.update((b or "").encode("utf-8"))
     cachekey = cachekey.hexdigest()
+    cachepath = f".cache/{cachekey[:2]}/{cachekey}"
 
-    if cachekey in SHELVE:
-        return SHELVE[cachekey]
+    try:
+        with open(cachepath) as f:
+            return int(f.read())
+    except:
+        pass
 
     if a is None or b is None:
         return 0
@@ -124,7 +126,11 @@ def lev(a, b):
         b = b.replace(r, "")
 
     score = int(Levenshtein.ratio(a, b) * 100)
-    SHELVE[cachekey] = score
+
+    os.makedirs(os.path.dirname(cachepath), exist_ok=True)
+    with open(cachepath, "w") as f:
+        f.write(str(score))
+
     return score
 
 
