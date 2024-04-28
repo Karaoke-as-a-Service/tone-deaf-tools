@@ -68,7 +68,7 @@ class Song:
             return 100, ["TEXT"]
 
         lev_artist = lev(self.ARTIST, needle.ARTIST)
-        lev_title = lev(self.ARTIST, needle.ARTIST)
+        lev_title = lev(self.TITLE, needle.TITLE)
 
         matchers = {
             "TITLE": (lambda: lev_title * (1 if lev_artist > 90 else 0.5)),
