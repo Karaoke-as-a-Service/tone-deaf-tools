@@ -6,12 +6,14 @@ KEY_SPACEBAR = 32
 
 
 class Window:
-    def __init__(self, y, x):
-        self.height = 15
-        self.width = 55
-        self.win = curses.newwin(self.height, self.width, y, x)
-        self.title = ""
-        self.text = ""
+    def __init__(self, y, height, x, width, title="", text=""):
+        self.y = y
+        self.height = height
+        self.x = x
+        self.width = width
+        self.win = curses.newwin(self.height, self.width, self.y, self.x)
+        self.title = title
+        self.text = text
 
     def set_title(self, title):
         self.title = title
@@ -28,7 +30,7 @@ class Window:
 
         y = 2
         for line in self.text.splitlines():
-            line = line[: self.width - 2]
+            line = line[: self.width - 3]
             self.win.addstr(y, 2, line)
             for x in (m.start() for m in re_nonascii.finditer(line)):
                 self.win.chgat(y, 2 + x, 1, curses.color_pair(3))

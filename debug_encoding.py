@@ -24,9 +24,9 @@ Quit by pressing 'q'.
 
 class Navigator:
     def __init__(self, items):
-        self.last = Window(1, 1)
-        self.now = Window(1, 1 + self.last.width + 2)
-        self.next = Window(1, 1 + self.last.width + self.now.width + 4)
+        self.last = Window(1, 15, 1, 55)
+        self.now = Window(1, 15, 1 + self.last.width + 2, 55)
+        self.next = Window(1, 15, 1 + self.last.width + self.now.width + 4, 55)
 
         self.pointer = 0
         self.items = [[i[0], i[1]] for i in items]
