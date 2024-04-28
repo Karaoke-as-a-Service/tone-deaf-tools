@@ -4,7 +4,9 @@ import argparse
 import dataclasses
 import functools
 import glob
+import hashlib
 import math
+import shelve
 import sys
 from pathlib import Path
 
@@ -36,6 +38,8 @@ Scoring cirteria:
 * number of singers matches
 * ... and many more
 """
+
+SHELVE = shelve.open("inteograte_collection.cache")
 
 
 class Song:
@@ -91,6 +95,13 @@ class Song:
 
 @functools.cache
 def lev(a, b):
+    cachekey = hashlib.sha1((a or "").encode("utf-8"))
+    cachekey.update((b or "").encode("utf-8"))
+    cachekey = cachekey.hexdigest()
+
+    if cachekey in SHELVE:
+        return SHELVE[cachekey]
+
     if a is None or b is None:
         return 0
 
@@ -112,7 +123,9 @@ def lev(a, b):
         a = a.replace(r, "")
         b = b.replace(r, "")
 
-    return int(Levenshtein.ratio(a, b) * 100)
+    score = int(Levenshtein.ratio(a, b) * 100)
+    SHELVE[cachekey] = score
+    return score
 
 
 class SongCollection:
