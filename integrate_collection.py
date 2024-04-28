@@ -206,7 +206,7 @@ def main(argv):
 
             print(f"{song_directory} => {new_name}")
             if not args.dry_run:
-                song_directory.renames(new_name)
+                os.renames(song_directory, new_name)
 
 
 if __name__ == "__main__":
