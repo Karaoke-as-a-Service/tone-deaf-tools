@@ -78,6 +78,7 @@ Scenario: your collection has mixed `#LANGUAGE` attributes like  "English",
 * [update_readme.py](#update_readmepy)
 * [recode_asktheweb.py](#recode_askthewebpy)
 * [get_attribute.py](#get_attributepy)
+* [guess_language.py](#guess_languagepy)
 * [list_attributes.py](#list_attributespy)
 * [integrate_collection.py](#integrate_collectionpy)
 * [download_cover.py](#download_coverpy)
@@ -146,6 +147,25 @@ positional arguments:
 options:
   -h, --help     show this help message and exit
   --no-filename  just print the value, not the file path.
+
+```
+
+### guess_language.py
+
+```console
+$ ./guess_language.py --help
+usage: guess_language.py [-h] [--dry-run] target files [files ...]
+
+Try to find the correct language for a given ultrastar text file and write it
+to the file's #LANGUAGE tag.
+
+positional arguments:
+  target
+  files
+
+options:
+  -h, --help  show this help message and exit
+  --dry-run   just find the encoding, do not change the file.
 
 ```
 
