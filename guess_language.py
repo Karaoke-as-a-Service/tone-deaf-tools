@@ -28,7 +28,7 @@ def guess_language(path):
         text = f.read()
 
     try:
-        language = guess_lyric_language(text)
+        language = guess_lyric_language(text, remove_non_ascii=False)
         try:
             old_language = get_attribute(text, "LANGUAGE")
         except KeyError:
