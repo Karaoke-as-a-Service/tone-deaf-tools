@@ -52,7 +52,7 @@ def main(argv):
     args = parser.parse_args(argv)
 
     for path in args.files:
-        print("")
+        print(path)
         try:
             language = guess_language(path)
 
