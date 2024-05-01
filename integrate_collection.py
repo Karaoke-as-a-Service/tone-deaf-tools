@@ -191,12 +191,10 @@ def main(argv):
 
             print(f"{song_directory} => {new_name}")
             if not args.dry_run:
-                try:
+                if not song_directory.exists():
+                    print(f"WARNING directory vanished: {song_directory}")
+                else:
                     os.renames(song_directory, new_name)
-                except FileNotFoundError:
-                    # OS X sometimes raises an error but still renames the file
-                    # no idea why, so
-                    pass
 
 
 if __name__ == "__main__":
