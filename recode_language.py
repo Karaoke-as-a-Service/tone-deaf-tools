@@ -21,23 +21,27 @@ Changes the file in place.
 non_ascii = re.compile("[^a-zA-Z0-9\"',. !?~\n\r*: #&_()\\[\\]-]")
 
 
-def guess_lyric_language(text):
+def guess_lyric_language(text, remove_non_ascii=True):
     lyrics = get_lyrics(text)
 
-    ascii_lyrics = ""
+    if remove_non_ascii:
+        ascii_lyrics = ""
 
-    for line in lyrics:
-        if line in ascii_lyrics:
-            continue
-        if not non_ascii.search(line):
-            ascii_lyrics += line + " "
+        for line in lyrics:
+            if line in ascii_lyrics:
+                continue
+            if not non_ascii.search(line):
+                ascii_lyrics += line + " "
 
-    if not ascii_lyrics:
-        raise Exception("no ascii-only lyrics found")
+        if not ascii_lyrics:
+            raise Exception("no ascii-only lyrics found")
 
-    ascii_lyrics = ascii_lyrics.replace("~", " ")
+        ascii_lyrics = ascii_lyrics.replace("~", " ")
+        lyrics = ascii_lyrics
+    else:
+        lyrics = " ".join(lyrics)
 
-    return detect(ascii_lyrics)
+    return detect(lyrics)
 
 
 def get_anti_alphabet(language):
