@@ -29,7 +29,10 @@ def guess_language(path):
 
     try:
         language = guess_lyric_language(text)
-        old_language = get_attribute(text, "LANGUAGE")
+        try:
+            old_language = get_attribute(text, "LANGUAGE")
+        except KeyError:
+            old_language = None
         print(f"SUCCESS\t{old_language}\t{language}")
         return language
     except Exception as ex:
