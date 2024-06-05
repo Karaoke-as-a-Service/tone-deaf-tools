@@ -83,6 +83,7 @@ Scenario: your collection has mixed `#LANGUAGE` attributes like  "English",
 * [integrate_collection.py](#integrate_collectionpy)
 * [download_cover.py](#download_coverpy)
 * [find_unused_files.py](#find_unused_filespy)
+* [fix_2024_mojibake.py](#fix_2024_mojibakepy)
 * [set_attribute.py](#set_attributepy)
 * [check_health.py](#check_healthpy)
 * [fix_file_links.py](#fix_file_linkspy)
@@ -265,6 +266,29 @@ positional arguments:
 
 options:
   -h, --help  show this help message and exit
+
+```
+
+### fix_2024_mojibake.py
+
+```console
+$ ./fix_2024_mojibake.py --help
+usage: fix_2024_mojibake.py [-h] [--dry-run] files [files ...]
+
+Try to fix the mojibake found in the 2024 CAMP23 collection. It contains many
+'Korean' characters like 큄 which are actually Czech characters like š. This
+script uses a simple mapping table to concert wrong into right characters. The
+original file is then replaces with a fixed version. Run with --dry-run to
+just print the broken characters. You may extend the mapping by adding entries
+to the char_map line of this script. Be careful to keep the encoding of the
+script as UTF-8.
+
+positional arguments:
+  files
+
+options:
+  -h, --help  show this help message and exit
+  --dry-run
 
 ```
 
