@@ -5,8 +5,6 @@ import re
 import sys
 import traceback
 
-from _utils import get_lyrics
-
 HELP = """
 Try to fix the mojibake found in the 2024 CAMP23 collection. It contains many
 'Korean' characters like 큄 which are actually Czech characters like š. This
@@ -67,7 +65,6 @@ char_map = str.maketrans(
 )
 
 RE_KOREAN_CHARACTER = re.compile(r"[가-힣]")
-RE_KOREAN_CHARACTER_WITH_CONTEXT = re.compile(r"[가-힣]")
 
 
 def fix_2024_mojibake(path, dry_run):
@@ -75,11 +72,12 @@ def fix_2024_mojibake(path, dry_run):
         text = f.read()
         text = text.translate(char_map)
         unknown_chars = RE_KOREAN_CHARACTER.findall(text)
-        print("unknown characters: " + " ".join(set(unknown_chars)))
 
     if not dry_run:
         with open(path, "w") as f:
             f.write(text)
+
+    return unknown_chars
 
 
 def main(argv):
@@ -87,12 +85,15 @@ def main(argv):
     parser.add_argument("files", nargs="+")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args(argv)
+    unknown_chars = []
 
     for path in args.files:
         try:
-            fix_2024_mojibake(path, args.dry_run)
+            unknown_chars += fix_2024_mojibake(path, args.dry_run)
         except Exception as ex:
             traceback.print_exc()
+
+    print("unknown characters: " + " ".join(set(unknown_chars)))
 
 
 if __name__ == "__main__":
